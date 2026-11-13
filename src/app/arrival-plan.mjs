@@ -12,7 +12,7 @@ export function createPlannerState() {
   };
 }
 
-export function validateTripInput(values = {}) {
+export function validateTripInput(values = {}, { allowSameText = false } = {}) {
   const input = {
     originText: typeof values.originText === 'string' ? values.originText.trim() : '',
     destinationText: typeof values.destinationText === 'string' ? values.destinationText.trim() : '',
@@ -23,7 +23,7 @@ export function validateTripInput(values = {}) {
   const errors = {};
   if (!input.originText) errors.originText = '출발지를 입력해 주세요.';
   if (!input.destinationText) errors.destinationText = '목적지를 입력해 주세요.';
-  if (input.originText && input.originText === input.destinationText) {
+  if (!allowSameText && input.originText && input.originText === input.destinationText) {
     errors.destinationText = '출발지와 다른 목적지를 입력해 주세요.';
   }
   if (!input.desiredArrivalDate) errors.desiredArrivalDate = '도착 날짜를 선택해 주세요.';
@@ -46,8 +46,8 @@ export function validateTripInput(values = {}) {
   return { valid: Object.keys(errors).length === 0, input, errors };
 }
 
-export function calculateTargetArrival(values) {
-  const { valid, input, errors } = validateTripInput(values);
+export function calculateTargetArrival(values, options) {
+  const { valid, input, errors } = validateTripInput(values, options);
   if (!valid) return { ok: false, errors, result: null };
   const desired = toTimestamp(input.desiredArrivalDate, input.desiredArrivalTime);
   const target = new Date(Date.parse(desired) - input.bufferMinutes * 60_000);

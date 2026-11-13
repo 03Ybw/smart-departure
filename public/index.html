@@ -38,17 +38,23 @@
               <div class="field route-field origin-field">
                 <span class="route-dot" aria-hidden="true"></span>
                 <label for="originText">출발지</label>
-                <input id="originText" name="originText" type="text" placeholder="출발할 장소를 입력하세요" required autocomplete="off" aria-describedby="originText-error">
+                <div class="place-input-row"><input id="originText" name="originText" type="text" placeholder="출발할 장소를 입력하세요" required autocomplete="off" maxlength="80" aria-describedby="originText-error origin-search-status"><button class="place-search-button" type="button" data-search="origin">검색</button></div>
                 <p class="field-error" id="originText-error" hidden></p>
+                <p class="selected-place" id="origin-selection" hidden></p>
+                <p class="place-status" id="origin-search-status" role="status"></p>
+                <ul class="place-results" id="origin-search-results" aria-label="출발지 검색 결과" hidden></ul>
               </div>
               <div class="field route-field destination-field">
                 <span class="route-dot destination-dot" aria-hidden="true"></span>
                 <label for="destinationText">목적지</label>
-                <input id="destinationText" name="destinationText" type="text" placeholder="도착할 장소를 입력하세요" required autocomplete="off" aria-describedby="destinationText-error">
+                <div class="place-input-row"><input id="destinationText" name="destinationText" type="text" placeholder="도착할 장소를 입력하세요" required autocomplete="off" maxlength="80" aria-describedby="destinationText-error destination-search-status"><button class="place-search-button" type="button" data-search="destination">검색</button></div>
                 <p class="field-error" id="destinationText-error" hidden></p>
+                <p class="selected-place" id="destination-selection" hidden></p>
+                <p class="place-status" id="destination-search-status" role="status"></p>
+                <ul class="place-results" id="destination-search-results" aria-label="목적지 검색 결과" hidden></ul>
               </div>
             </div>
-            <p class="field-hint route-hint">역, 학교, 건물 이름 등을 자유롭게 입력하세요.</p>
+            <p class="field-hint route-hint">장소명을 검색하고, 주소를 확인한 뒤 결과를 직접 선택하세요.</p>
           </fieldset>
           <fieldset class="form-section schedule-section">
             <legend><span class="section-number">02</span>도착 일정</legend>
@@ -79,7 +85,9 @@
             <p class="field-error" id="bufferMinutes-error" hidden></p>
           </fieldset>
           <button class="calculate-button" type="submit"><span>목표 도착시각 계산하기</span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <p class="form-footnote">입력한 정보는 저장되거나 외부로 전송되지 않아요.</p>
+          <button class="calculate-button recommendation-button" id="recommend-button" type="button">경로 조회하고 출발시각 추정</button>
+          <p class="form-footnote">검색·조회 버튼을 누를 때만 서버에 요청해요.</p>
+          <p class="place-status recommendation-status" id="recommendation-status" role="status"></p>
         </form>
       </section>
       <aside class="result-column">
@@ -100,9 +108,17 @@
               <dl class="result-details"><div><dt>희망 도착</dt><dd id="desired-arrival"></dd></div><div><dt>도착 여유시간</dt><dd id="result-buffer"></dd></div></dl>
             </div>
           </div>
-          <div class="departure-placeholder"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 17V8a3 3 0 0 1 3-3h10m-4-3 4 3-4 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="5" cy="19" r="2" stroke="currentColor" stroke-width="1.5"/></svg><div><h3>추천 출발시각</h3><p>경로 조회 연결 후 제공됩니다.</p></div></div>
+          <div class="departure-placeholder" id="departure-placeholder"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 17V8a3 3 0 0 1 3-3h10m-4-3 4 3-4 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="5" cy="19" r="2" stroke="currentColor" stroke-width="1.5"/></svg><div><h3>추정 출발시각</h3><p>장소를 선택하고 경로를 조회하면 표시됩니다.</p></div></div>
+          <section class="departure-result" id="recommendation-result" aria-label="조회된 경로와 추정 출발시각" aria-live="polite" hidden>
+            <h3>추정 출발시각</h3><p class="estimate-basis">현재 조회 소요시간 기준 추정</p>
+            <p id="departure-date" class="target-date"></p><time class="estimate-time" id="departure-time"></time>
+            <p class="field-hint">초 단위 계산 후 이전 분으로 내림한 표시용 추정값입니다.</p>
+            <dl class="result-details route-summary"><div><dt>전체 예상 이동시간</dt><dd id="total-duration"></dd></div><div><dt>도보시간</dt><dd id="walk-duration"></dd></div><div><dt>환승 횟수</dt><dd id="transfer-count"></dd></div></dl>
+            <h3 class="route-title">조회된 이동 경로</h3><p class="field-hint">제공된 순서에서 첫 번째 유효한 버스·지하철 경로입니다.</p>
+            <ol class="route-legs" id="route-legs"></ol><ul class="estimate-limitations" id="estimate-limitations"></ul>
+          </section>
         </section>
-        <section class="connection-note" aria-labelledby="connection-title"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5m0-9v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><h2 id="connection-title">실제 경로 조회는 아직 연결되지 않았어요</h2><p>지금은 목표 도착시각만 계산합니다. 실제 이동시간과 추천 출발시각은 표시하지 않아요.</p></div></section>
+        <section class="connection-note" aria-labelledby="connection-title"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5m0-9v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><h2 id="connection-title">실제 미래 운행편의 시각은 확인되지 않아요</h2><p>출발시각은 조회된 소요시간 기준의 추정입니다. 미래 배차, 환승 대기, 교통 지연 등에 따라 실제 이동시간은 달라질 수 있어요.</p></div></section>
       </aside>
     </div>
     <footer class="site-footer"><span>Smart Departure</span><p>시간을 계획하고, 여유롭게 출발하세요.</p></footer>

@@ -21,7 +21,7 @@ test('로컬 서버에서 HTML, CSS, 브라우저 JS와 재사용 시간 모듈 
     assert.ok(response.headers.get('content-type').startsWith(type));
     assert.ok((await response.text()).length > 0);
     assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
-    assert.match(response.headers.get('content-security-policy'), /connect-src 'none'/);
+    assert.match(response.headers.get('content-security-policy'), /connect-src 'self'/);
   }
 }));
 
