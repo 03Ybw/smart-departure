@@ -1,0 +1,17 @@
+# Local development instructions and verification notes
+/AGENTS.md
+/docs/api-verification.md
+
+# Dependencies and private environment files
+node_modules/
+.env
+.env.*
+!.env.example
+
+# API verification outputs and temporary files
+*.log
+logs/
+reports/
+tmp/
+coverage/
+*.response.json

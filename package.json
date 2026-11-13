@@ -1,0 +1,12 @@
+{
+  "name": "smart-departure",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Stage 1: TMAP transit verification",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test",
+    "verify:transit": "node scripts/verify-tmap-transit.mjs"
+  }
+}
