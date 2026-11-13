@@ -1,0 +1,590 @@
+:root{
+  color-scheme:light;
+  --bg:#f5f7f4;
+  --ink:#23382f;
+  --muted:#64746a;
+  --green:#184c3c;
+  --green-hover:#103e30;
+  --mint:#eef5e9;
+  --border:#dfe6de;
+  --error:#ad3038;
+  font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  font-synthesis:none}
+  *{
+    box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased}
+      button,input{
+        font:inherit}
+        button,a,input,label{
+          -webkit-tap-highlight-color:transparent}
+          a{
+            color:inherit}
+            button{
+              cursor:pointer}
+              [hidden]{
+                display:none!important}
+                svg{
+                  display:block;
+                  flex-shrink:0}
+                  button:focus-visible,a:focus-visible,input:focus-visible{
+                    outline:3px solid #6d9c72;
+                    outline-offset:4px}
+                    .skip-link{
+                      position:absolute;
+                      left:16px;
+                      top:-70px;
+                      z-index:10;
+                      background:var(--green);
+                      color:#fff;
+                      padding:12px 20px;
+                      border-radius:8px}
+                      .skip-link:focus{
+                        top:12px}
+                        .site-header{
+                          border-bottom:1px solid var(--border);
+                          background:#fafbf8}
+                          .header-inner{
+                            max-width:1128px;
+                            margin:auto;
+                            padding:23px 24px;
+                            display:flex;
+                            align-items:center;
+                            justify-content:space-between;
+                            gap:16px}
+                            .brand{
+                              display:flex;
+                              align-items:center;
+                              gap:10px;
+                              text-decoration:none;
+                              font-size:19px;
+                              font-weight:750;
+                              letter-spacing:-.6px}
+                              .brand img{
+                                display:block}
+                                .timezone{
+                                  display:flex;
+                                  align-items:center;
+                                  gap:7px;
+                                  font-size:12px;
+                                  color:var(--muted);
+                                  white-space:nowrap}
+                                  .timezone-code{
+                                    font-size:10px;
+                                    border:1px solid var(--border);
+                                    padding:2px 5px;
+                                    border-radius:4px;
+                                    letter-spacing:.5px}
+                                    .status-dot{
+                                      width:6px;
+                                      height:6px;
+                                      border-radius:50%;
+                                      background:#52865d;
+                                      display:inline-block;
+                                      flex-shrink:0}
+                                      .page-shell{
+                                        max-width:1128px;
+                                        margin:auto;
+                                        padding:42px 24px 0}
+                                        .intro{
+                                          margin-bottom:30px}
+                                          .eyebrow{
+                                            font-size:12px;
+                                            font-weight:700;
+                                            letter-spacing:.03em;
+                                            color:#507459;
+                                            margin:0 0 12px}
+                                            .intro h1{
+                                              font-size:34px;
+                                              line-height:1.45;
+                                              letter-spacing:-1.6px;
+                                              font-weight:750;
+                                              margin:0}
+                                              .intro h1 span{
+                                                color:var(--green)}
+                                                .intro-copy{
+                                                  font-size:14px;
+                                                  line-height:1.85;
+                                                  color:var(--muted);
+                                                  margin:15px 0 0;
+                                                  letter-spacing:-.35px}
+                                                  .planner-layout{
+                                                    display:grid;
+                                                    grid-template-columns:minmax(0,1.52fr) minmax(0,1fr);
+                                                    gap:24px;
+                                                    align-items:start}
+                                                    .form-card{
+                                                      background:#fff;
+                                                      border:1px solid var(--border);
+                                                      border-radius:20px;
+                                                      padding:30px;
+                                                      box-shadow:0 5px 24px #243c2d03}
+                                                      .card-heading h2{
+                                                        font-size:19px;
+                                                        letter-spacing:-.7px;
+                                                        margin:0;
+                                                        font-weight:750}
+                                                        .card-heading p{
+                                                          font-size:12px;
+                                                          line-height:1.7;
+                                                          color:var(--muted);
+                                                          margin:7px 0 0}
+                                                          fieldset{
+                                                            padding:0;
+                                                            margin:0;
+                                                            border:0;
+                                                            min-width:0}
+                                                            legend{
+                                                              padding:0;
+                                                              font-size:13px;
+                                                              font-weight:750;
+                                                              letter-spacing:-.3px;
+                                                              width:100%;
+                                                              display:flex;
+                                                              align-items:center;
+                                                              gap:8px}
+                                                              .section-number{
+                                                                color:#7b8b79;
+                                                                font-size:10px;
+                                                                letter-spacing:.02em;
+                                                                font-weight:600}
+                                                                .form-section{
+                                                                  margin-top:27px}
+                                                                  .route-fields{
+                                                                    position:relative;
+                                                                    margin-top:17px}
+                                                                    .route-fields:before{
+                                                                      content:"";
+                                                                      position:absolute;
+                                                                      left:5px;
+                                                                      top:17px;
+                                                                      bottom:43px;
+                                                                      border-left:1px dashed #c4d3c2}
+                                                                      .field{
+                                                                        min-width:0}
+                                                                        .route-field{
+                                                                          position:relative;
+                                                                          padding-left:25px}
+                                                                          .route-field+.route-field{
+                                                                            margin-top:18px}
+                                                                            .route-dot{
+                                                                              position:absolute;
+                                                                              left:0;
+                                                                              top:4px;
+                                                                              width:11px;
+                                                                              height:11px;
+                                                                              background:#fff;
+                                                                              border:2px solid #8a9b87;
+                                                                              border-radius:50%;
+                                                                              box-shadow:0 0 0 4px #fff}
+                                                                              .destination-dot{
+                                                                                border-color:var(--green);
+                                                                                background:var(--green)}
+                                                                                .field label{
+                                                                                  display:block;
+                                                                                  font-size:12px;
+                                                                                  font-weight:650;
+                                                                                  margin:0 0 8px;
+                                                                                  letter-spacing:-.25px}
+                                                                                  input[type=text],input[type=date],input[type=time]{
+                                                                                    width:100%;
+                                                                                    min-width:0;
+                                                                                    height:48px;
+                                                                                    border:1px solid var(--border);
+                                                                                    background:#fff;
+                                                                                    border-radius:9px;
+                                                                                    padding:0 13px;
+                                                                                    color:var(--ink);
+                                                                                    font-size:14px;
+                                                                                    transition:border-color .15s,box-shadow .15s}
+                                                                                    input::placeholder{
+                                                                                      color:#8a958c;
+                                                                                      font-size:13px}
+                                                                                      input:hover{
+                                                                                        border-color:#afc2ad}
+                                                                                        input:focus{
+                                                                                          border-color:#578565;
+                                                                                          box-shadow:0 0 0 3px #57856512;
+                                                                                          outline:none}
+                                                                                          input:focus-visible{
+                                                                                            outline:2px solid #578565;
+                                                                                            outline-offset:2px}
+                                                                                            input[aria-invalid=true]{
+                                                                                              border-color:var(--error);
+                                                                                              background:#fffafb}
+                                                                                              input[type=date],input[type=time]{
+                                                                                                font-variant-numeric:tabular-nums;
+                                                                                                color-scheme:light;
+                                                                                                letter-spacing:-.25px}
+                                                                                                input::-webkit-calendar-picker-indicator{
+                                                                                                  opacity:.6;
+                                                                                                  cursor:pointer}
+                                                                                                  .field-error{
+                                                                                                    font-size:12px;
+                                                                                                    color:var(--error);
+                                                                                                    line-height:1.6;
+                                                                                                    margin:6px 0 0}
+                                                                                                    .field-hint{
+                                                                                                      font-size:11px;
+                                                                                                      line-height:1.8;
+                                                                                                      color:var(--muted);
+                                                                                                      margin:8px 0 0}
+                                                                                                      .route-hint{
+                                                                                                        padding-left:25px}
+                                                                                                        .schedule-section{
+                                                                                                          border-top:1px solid #edf0eb;
+                                                                                                          padding-top:23px;
+                                                                                                          margin-top:24px}
+                                                                                                          .date-time-fields{
+                                                                                                            display:grid;
+                                                                                                            grid-template-columns:1.15fr 1fr;
+                                                                                                            gap:14px;
+                                                                                                            margin-top:17px}
+                                                                                                            .buffer-section{
+                                                                                                              margin-top:23px}
+                                                                                                              .buffer-section legend{
+                                                                                                                font-size:12px}
+                                                                                                                .buffer-section .field-hint{
+                                                                                                                  margin-top:5px}
+                                                                                                                  .buffer-options{
+                                                                                                                    display:grid;
+                                                                                                                    grid-template-columns:repeat(6,minmax(0,1fr));
+                                                                                                                    gap:7px;
+                                                                                                                    margin-top:12px}
+                                                                                                                    .buffer-options label{
+                                                                                                                      position:relative;
+                                                                                                                      cursor:pointer;
+                                                                                                                      min-width:0}
+                                                                                                                      .buffer-options input{
+                                                                                                                        position:absolute;
+                                                                                                                        opacity:0;
+                                                                                                                        width:1px;
+                                                                                                                        height:1px}
+                                                                                                                        .buffer-options span{
+                                                                                                                          height:42px;
+                                                                                                                          border:1px solid var(--border);
+                                                                                                                          border-radius:8px;
+                                                                                                                          display:flex;
+                                                                                                                          align-items:center;
+                                                                                                                          justify-content:center;
+                                                                                                                          font-size:12px;
+                                                                                                                          color:#627268;
+                                                                                                                          transition:background .15s,border-color .15s}
+                                                                                                                          .buffer-options label:hover span{
+                                                                                                                            background:#f5f8f2;
+                                                                                                                            border-color:#a8bda2}
+                                                                                                                            .buffer-options input:checked+span{
+                                                                                                                              border-color:var(--green);
+                                                                                                                              color:var(--green);
+                                                                                                                              background:var(--mint);
+                                                                                                                              font-weight:750;
+                                                                                                                              box-shadow:inset 0 0 0 .5px var(--green)}
+                                                                                                                              .buffer-options input:focus-visible+span{
+                                                                                                                                outline:3px solid #6d9c72;
+                                                                                                                                outline-offset:3px}
+                                                                                                                                .calculate-button{
+                                                                                                                                  margin-top:26px;
+                                                                                                                                  width:100%;
+                                                                                                                                  min-height:50px;
+                                                                                                                                  border:0;
+                                                                                                                                  border-radius:9px;
+                                                                                                                                  background:var(--green);
+                                                                                                                                  color:#fff;
+                                                                                                                                  display:flex;
+                                                                                                                                  align-items:center;
+                                                                                                                                  justify-content:center;
+                                                                                                                                  gap:12px;
+                                                                                                                                  font-size:14px;
+                                                                                                                                  letter-spacing:-.3px;
+                                                                                                                                  font-weight:650;
+                                                                                                                                  transition:background .15s,transform .15s}
+                                                                                                                                  .calculate-button svg{
+                                                                                                                                    width:18px;
+                                                                                                                                    height:18px}
+                                                                                                                                    .calculate-button:hover{
+                                                                                                                                      background:var(--green-hover)}
+                                                                                                                                      .calculate-button:active{
+                                                                                                                                        transform:translateY(1px)}
+                                                                                                                                        .form-footnote{
+                                                                                                                                          font-size:10px;
+                                                                                                                                          color:var(--muted);
+                                                                                                                                          text-align:center;
+                                                                                                                                          margin:11px 0 0;
+                                                                                                                                          line-height:1.8}
+                                                                                                                                          .result-column{
+                                                                                                                                            display:grid;
+                                                                                                                                            gap:17px}
+                                                                                                                                            .result-card{
+                                                                                                                                              border:1px solid #d9e4d3;
+                                                                                                                                              border-radius:20px;
+                                                                                                                                              background:#eef4e9;
+                                                                                                                                              overflow:hidden}
+                                                                                                                                              .result-heading{
+                                                                                                                                                display:flex;
+                                                                                                                                                align-items:center;
+                                                                                                                                                gap:8px;
+                                                                                                                                                padding:22px 25px;
+                                                                                                                                                border-bottom:1px solid #dce6d5}
+                                                                                                                                                .result-heading h2{
+                                                                                                                                                  font-size:13px;
+                                                                                                                                                  font-weight:750;
+                                                                                                                                                  margin:0}
+                                                                                                                                                  .empty-result{
+                                                                                                                                                    min-height:335px;
+                                                                                                                                                    padding:33px 18px 37px;
+                                                                                                                                                    text-align:center;
+                                                                                                                                                    display:flex;
+                                                                                                                                                    flex-direction:column;
+                                                                                                                                                    align-items:center;
+                                                                                                                                                    justify-content:center}
+                                                                                                                                                    .clock-illustration{
+                                                                                                                                                      width:88px;
+                                                                                                                                                      height:88px;
+                                                                                                                                                      color:#6b8b68;
+                                                                                                                                                      margin-bottom:18px}
+                                                                                                                                                      .clock-illustration svg{
+                                                                                                                                                        width:100%;
+                                                                                                                                                        height:100%}
+                                                                                                                                                        .empty-result h3{
+                                                                                                                                                          font-size:15px;
+                                                                                                                                                          font-weight:650;
+                                                                                                                                                          margin:0;
+                                                                                                                                                          letter-spacing:-.6px}
+                                                                                                                                                          .empty-result p{
+                                                                                                                                                            font-size:12px;
+                                                                                                                                                            line-height:1.9;
+                                                                                                                                                            color:#64765f;
+                                                                                                                                                            margin:10px 0 0;
+                                                                                                                                                            letter-spacing:-.15px}
+                                                                                                                                                            .departure-placeholder{
+                                                                                                                                                              display:flex;
+                                                                                                                                                              align-items:center;
+                                                                                                                                                              gap:13px;
+                                                                                                                                                              background:#f7faf3;
+                                                                                                                                                              border-top:1px dashed #cad8c3;
+                                                                                                                                                              padding:22px 25px}
+                                                                                                                                                              .departure-placeholder>svg{
+                                                                                                                                                                width:26px;
+                                                                                                                                                                height:26px;
+                                                                                                                                                                color:#698665}
+                                                                                                                                                                .departure-placeholder h3{
+                                                                                                                                                                  font-size:12px;
+                                                                                                                                                                  font-weight:700;
+                                                                                                                                                                  margin:0}
+                                                                                                                                                                  .departure-placeholder p{
+                                                                                                                                                                    font-size:11px;
+                                                                                                                                                                    color:var(--muted);
+                                                                                                                                                                    margin:6px 0 0;
+                                                                                                                                                                    line-height:1.6}
+                                                                                                                                                                    .connection-note{
+                                                                                                                                                                      display:flex;
+                                                                                                                                                                      align-items:flex-start;
+                                                                                                                                                                      gap:10px;
+                                                                                                                                                                      padding:0 3px}
+                                                                                                                                                                      .connection-note>svg{
+                                                                                                                                                                        width:17px;
+                                                                                                                                                                        height:17px;
+                                                                                                                                                                        color:#748970;
+                                                                                                                                                                        margin-top:1px}
+                                                                                                                                                                        .connection-note h2{
+                                                                                                                                                                          font-size:11px;
+                                                                                                                                                                          line-height:1.7;
+                                                                                                                                                                          font-weight:650;
+                                                                                                                                                                          margin:0;
+                                                                                                                                                                          color:#536750}
+                                                                                                                                                                          .connection-note p{
+                                                                                                                                                                            font-size:11px;
+                                                                                                                                                                            line-height:1.9;
+                                                                                                                                                                            color:var(--muted);
+                                                                                                                                                                            margin:5px 0 0}
+                                                                                                                                                                            .calculated-result{
+                                                                                                                                                                              padding:30px 25px 25px}
+                                                                                                                                                                              .target-label{
+                                                                                                                                                                                font-size:11px;
+                                                                                                                                                                                color:#5b7756;
+                                                                                                                                                                                margin:0 0 16px}
+                                                                                                                                                                                .target-date{
+                                                                                                                                                                                  font-size:13px;
+                                                                                                                                                                                  letter-spacing:.2px;
+                                                                                                                                                                                  margin:0;
+                                                                                                                                                                                  color:#47653f}
+                                                                                                                                                                                  .target-time-row{
+                                                                                                                                                                                    display:flex;
+                                                                                                                                                                                    align-items:center;
+                                                                                                                                                                                    gap:11px;
+                                                                                                                                                                                    flex-wrap:wrap;
+                                                                                                                                                                                    margin-top:3px}
+                                                                                                                                                                                    .target-time{
+                                                                                                                                                                                      font-family:system-ui,sans-serif;
+                                                                                                                                                                                      font-size:64px;
+                                                                                                                                                                                      font-weight:600;
+                                                                                                                                                                                      letter-spacing:-4px;
+                                                                                                                                                                                      font-variant-numeric:tabular-nums;
+                                                                                                                                                                                      line-height:1.2;
+                                                                                                                                                                                      color:var(--green)}
+                                                                                                                                                                                      .previous-day{
+                                                                                                                                                                                        border-radius:5px;
+                                                                                                                                                                                        background:#dce9d2;
+                                                                                                                                                                                        color:#3d6637;
+                                                                                                                                                                                        font-size:11px;
+                                                                                                                                                                                        font-weight:650;
+                                                                                                                                                                                        padding:4px 7px}
+                                                                                                                                                                                        .target-caption{
+                                                                                                                                                                                          font-size:11px;
+                                                                                                                                                                                          line-height:1.8;
+                                                                                                                                                                                          color:#65785e;
+                                                                                                                                                                                          margin:9px 0 22px}
+                                                                                                                                                                                          .result-route{
+                                                                                                                                                                                            border-top:1px solid #d9e3d2;
+                                                                                                                                                                                            padding-top:19px;
+                                                                                                                                                                                            display:flex;
+                                                                                                                                                                                            align-items:center;
+                                                                                                                                                                                            gap:8px;
+                                                                                                                                                                                            font-size:12px;
+                                                                                                                                                                                            font-weight:650;
+                                                                                                                                                                                            line-height:1.7;
+                                                                                                                                                                                            overflow-wrap:anywhere}
+                                                                                                                                                                                            .result-route span{
+                                                                                                                                                                                              min-width:0}
+                                                                                                                                                                                              .result-route svg{
+                                                                                                                                                                                                width:16px;
+                                                                                                                                                                                                height:16px;
+                                                                                                                                                                                                color:#7d9275}
+                                                                                                                                                                                                .result-details{
+                                                                                                                                                                                                  margin:16px 0 0;
+                                                                                                                                                                                                  display:grid;
+                                                                                                                                                                                                  gap:12px;
+                                                                                                                                                                                                  font-size:11px;
+                                                                                                                                                                                                  line-height:1.9}
+                                                                                                                                                                                                  .result-details>div{
+                                                                                                                                                                                                    display:flex;
+                                                                                                                                                                                                    justify-content:space-between;
+                                                                                                                                                                                                    gap:12px}
+                                                                                                                                                                                                    .result-details dt{
+                                                                                                                                                                                                      color:#64765f;
+                                                                                                                                                                                                      flex-shrink:0}
+                                                                                                                                                                                                      .result-details dd{
+                                                                                                                                                                                                        margin:0;
+                                                                                                                                                                                                        text-align:right;
+                                                                                                                                                                                                        overflow-wrap:anywhere}
+                                                                                                                                                                                                        .site-footer{
+                                                                                                                                                                                                          margin-top:36px;
+                                                                                                                                                                                                          border-top:1px solid var(--border);
+                                                                                                                                                                                                          padding:23px 0 28px;
+                                                                                                                                                                                                          display:flex;
+                                                                                                                                                                                                          justify-content:space-between;
+                                                                                                                                                                                                          align-items:center;
+                                                                                                                                                                                                          gap:12px;
+                                                                                                                                                                                                          color:#758371}
+                                                                                                                                                                                                          .site-footer span{
+                                                                                                                                                                                                            font-size:11px;
+                                                                                                                                                                                                            font-weight:700}
+                                                                                                                                                                                                            .site-footer p{
+                                                                                                                                                                                                              font-size:11px;
+                                                                                                                                                                                                              margin:0;
+                                                                                                                                                                                                              line-height:1.8}
+                                                                                                                                                                                                              .notice{
+                                                                                                                                                                                                                background:#fff3df;
+                                                                                                                                                                                                                padding:14px;
+                                                                                                                                                                                                                border-radius:8px;
+                                                                                                                                                                                                                font-size:13px}
+                                                                                                                                                                                                                @media(min-width:1000px){
+                                                                                                                                                                                                                  .result-column{
+                                                                                                                                                                                                                    position:sticky;
+                                                                                                                                                                                                                    top:24px}
+                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                  @media(max-width:767px){
+                                                                                                                                                                                                                    .header-inner{
+                                                                                                                                                                                                                      padding:18px 20px}
+                                                                                                                                                                                                                      .brand{
+                                                                                                                                                                                                                        font-size:17px;
+                                                                                                                                                                                                                        gap:8px}
+                                                                                                                                                                                                                        .brand img{
+                                                                                                                                                                                                                          width:32px;
+                                                                                                                                                                                                                          height:32px}
+                                                                                                                                                                                                                          .timezone{
+                                                                                                                                                                                                                            font-size:10px;
+                                                                                                                                                                                                                            gap:5px}
+                                                                                                                                                                                                                            .timezone-code{
+                                                                                                                                                                                                                              display:none}
+                                                                                                                                                                                                                              .page-shell{
+                                                                                                                                                                                                                                padding:29px 20px 0}
+                                                                                                                                                                                                                                .intro{
+                                                                                                                                                                                                                                  margin-bottom:23px}
+                                                                                                                                                                                                                                  .intro h1{
+                                                                                                                                                                                                                                    font-size:28px;
+                                                                                                                                                                                                                                    letter-spacing:-1.3px}
+                                                                                                                                                                                                                                    .intro-copy{
+                                                                                                                                                                                                                                      font-size:12px;
+                                                                                                                                                                                                                                      margin-top:12px}
+                                                                                                                                                                                                                                      .eyebrow{
+                                                                                                                                                                                                                                        font-size:11px;
+                                                                                                                                                                                                                                        margin-bottom:10px}
+                                                                                                                                                                                                                                        .planner-layout{
+                                                                                                                                                                                                                                          grid-template-columns:minmax(0,1fr);
+                                                                                                                                                                                                                                          gap:20px}
+                                                                                                                                                                                                                                          .form-card{
+                                                                                                                                                                                                                                            padding:24px 21px;
+                                                                                                                                                                                                                                            border-radius:16px}
+                                                                                                                                                                                                                                            .card-heading h2{
+                                                                                                                                                                                                                                              font-size:17px}
+                                                                                                                                                                                                                                              .card-heading p{
+                                                                                                                                                                                                                                                font-size:11px}
+                                                                                                                                                                                                                                                .form-section{
+                                                                                                                                                                                                                                                  margin-top:23px}
+                                                                                                                                                                                                                                                  .date-time-fields{
+                                                                                                                                                                                                                                                    gap:10px;
+                                                                                                                                                                                                                                                    grid-template-columns:1.15fr 1fr}
+                                                                                                                                                                                                                                                    input[type=date],input[type=time]{
+                                                                                                                                                                                                                                                      font-size:13px;
+                                                                                                                                                                                                                                                      padding:0 9px}
+                                                                                                                                                                                                                                                      .buffer-options{
+                                                                                                                                                                                                                                                        gap:6px}
+                                                                                                                                                                                                                                                        .buffer-options span{
+                                                                                                                                                                                                                                                          font-size:11px}
+                                                                                                                                                                                                                                                          .result-card{
+                                                                                                                                                                                                                                                            border-radius:16px}
+                                                                                                                                                                                                                                                            .empty-result{
+                                                                                                                                                                                                                                                              min-height:260px;
+                                                                                                                                                                                                                                                              padding:26px 18px}
+                                                                                                                                                                                                                                                              .connection-note{
+                                                                                                                                                                                                                                                                padding:0 4px}
+                                                                                                                                                                                                                                                                .site-footer{
+                                                                                                                                                                                                                                                                  margin-top:27px;
+                                                                                                                                                                                                                                                                  align-items:flex-start}
+                                                                                                                                                                                                                                                                  .site-footer p{
+                                                                                                                                                                                                                                                                    font-size:10px}
+                                                                                                                                                                                                                                                                    .calculated-result{
+                                                                                                                                                                                                                                                                      padding:25px}
+                                                                                                                                                                                                                                                                      .target-time{
+                                                                                                                                                                                                                                                                        font-size:60px}
+                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                      @media(max-width:359px){
+                                                                                                                                                                                                                                                                        .header-inner{
+                                                                                                                                                                                                                                                                          padding-inline:15px}
+                                                                                                                                                                                                                                                                          .brand{
+                                                                                                                                                                                                                                                                            font-size:15px}
+                                                                                                                                                                                                                                                                            .timezone{
+                                                                                                                                                                                                                                                                              font-size:9px}
+                                                                                                                                                                                                                                                                              .page-shell{
+                                                                                                                                                                                                                                                                                padding-inline:15px}
+                                                                                                                                                                                                                                                                                .form-card{
+                                                                                                                                                                                                                                                                                  padding-inline:17px}
+                                                                                                                                                                                                                                                                                  .intro h1{
+                                                                                                                                                                                                                                                                                    font-size:25px}
+                                                                                                                                                                                                                                                                                    .buffer-options{
+                                                                                                                                                                                                                                                                                      grid-template-columns:repeat(3,minmax(0,1fr))}
+                                                                                                                                                                                                                                                                                      .date-time-fields{
+                                                                                                                                                                                                                                                                                        grid-template-columns:1fr}
+                                                                                                                                                                                                                                                                                        .site-footer{
+                                                                                                                                                                                                                                                                                          flex-direction:column;
+                                                                                                                                                                                                                                                                                          gap:4px}
+                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                        @media(prefers-reduced-motion:reduce){
+                                                                                                                                                                                                                                                                                          *,*:before,*:after{
+                                                                                                                                                                                                                                                                                            transition:none!important;
+                                                                                                                                                                                                                                                                                            scroll-behavior:auto!important}
+                                                                                                                                                                                                                                                                                          }
