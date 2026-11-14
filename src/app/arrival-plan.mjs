@@ -12,20 +12,13 @@ export function createPlannerState() {
   };
 }
 
-export function validateTripInput(values = {}, { allowSameText = false } = {}) {
+export function validateScheduleInput(values = {}) {
   const input = {
-    originText: typeof values.originText === 'string' ? values.originText.trim() : '',
-    destinationText: typeof values.destinationText === 'string' ? values.destinationText.trim() : '',
     desiredArrivalDate: values.desiredArrivalDate,
     desiredArrivalTime: values.desiredArrivalTime,
     bufferMinutes: values.bufferMinutes,
   };
   const errors = {};
-  if (!input.originText) errors.originText = '출발지를 입력해 주세요.';
-  if (!input.destinationText) errors.destinationText = '목적지를 입력해 주세요.';
-  if (!allowSameText && input.originText && input.originText === input.destinationText) {
-    errors.destinationText = '출발지와 다른 목적지를 입력해 주세요.';
-  }
   if (!input.desiredArrivalDate) errors.desiredArrivalDate = '도착 날짜를 선택해 주세요.';
   else {
     try {
@@ -46,8 +39,8 @@ export function validateTripInput(values = {}, { allowSameText = false } = {}) {
   return { valid: Object.keys(errors).length === 0, input, errors };
 }
 
-export function calculateTargetArrival(values, options) {
-  const { valid, input, errors } = validateTripInput(values, options);
+export function calculateScheduleTarget(values) {
+  const { valid, input, errors } = validateScheduleInput(values);
   if (!valid) return { ok: false, errors, result: null };
   const desired = toTimestamp(input.desiredArrivalDate, input.desiredArrivalTime);
   const target = new Date(Date.parse(desired) - input.bufferMinutes * 60_000);
@@ -58,15 +51,41 @@ export function calculateTargetArrival(values, options) {
   const targetTime = new Date(target.getTime() + 9 * 3_600_000).toISOString().slice(11, 16);
   return {
     ok: true, errors: {},
+    result: { ...input, targetArrivalDateTime: `${targetDate}T${targetTime}:00+09:00` },
+  };
+}
+
+// Route requests still validate places as well as the independently calculated schedule.
+export function validateTripInput(values = {}, { allowSameText = false } = {}) {
+  const schedule = validateScheduleInput(values);
+  const input = {
+    originText: typeof values.originText === 'string' ? values.originText.trim() : '',
+    destinationText: typeof values.destinationText === 'string' ? values.destinationText.trim() : '',
+    ...schedule.input,
+  };
+  const errors = { ...schedule.errors };
+  if (!input.originText) errors.originText = '출발지를 입력해 주세요.';
+  if (!input.destinationText) errors.destinationText = '목적지를 입력해 주세요.';
+  if (!allowSameText && input.originText && input.originText === input.destinationText) errors.destinationText = '출발지와 다른 목적지를 입력해 주세요.';
+  return { valid: Object.keys(errors).length === 0, input, errors };
+}
+
+export function calculateTargetArrival(values, options) {
+  const { valid, input, errors } = validateTripInput(values, options);
+  if (!valid) return { ok: false, errors, result: null };
+  const schedule = calculateScheduleTarget(input);
+  if (!schedule.ok) return schedule;
+  return {
+    ok: true, errors: {},
     result: {
-      ...input, targetArrivalDateTime: `${targetDate}T${targetTime}:00+09:00`,
+      ...input, ...schedule.result,
       route: null, totalDurationSeconds: null, estimatedDepartureDateTime: null,
       estimateBasis: null, limitations: [],
     },
   };
 }
 
-// Every input edit clears the previous calculation before anything is displayed.
+// Preserve the legacy result contract; the journey's schedule is derived independently.
 export function updatePlannerInput(state, patch) {
   const errors = { ...state.errors };
   for (const name of Object.keys(patch)) delete errors[name];

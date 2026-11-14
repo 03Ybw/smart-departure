@@ -70,6 +70,7 @@
                 <p class="field-error" id="desiredArrivalTime-error" hidden></p>
               </div>
             </div>
+            <p class="field-hint">날짜·시각·여유시간을 입력하면 목표 도착시각이 자동으로 계산돼요.</p>
           </fieldset>
           <fieldset class="buffer-section" aria-describedby="buffer-hint bufferMinutes-error">
             <legend>도착 여유시간</legend>
@@ -84,7 +85,6 @@
             </div>
             <p class="field-error" id="bufferMinutes-error" hidden></p>
           </fieldset>
-          <button class="calculate-button" type="submit"><span>목표 도착시각 계산하기</span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <button class="calculate-button recommendation-button" id="recommend-button" type="button">경로 조회하고 출발시각 추정</button>
           <p class="form-footnote">검색·조회 버튼을 누를 때만 서버에 요청해요.</p>
           <p class="place-status recommendation-status" id="recommendation-status" role="status"></p>

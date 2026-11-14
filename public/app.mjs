@@ -1,4 +1,4 @@
-import { calculateTargetArrival, formatSeoulDateTime } from '/src/app/arrival-plan.mjs';
+import { calculateScheduleTarget, calculateTargetArrival, formatSeoulDateTime } from '/src/app/arrival-plan.mjs';
 import { createJourneyState, changeJourneyInput, choosePlace, createRequestGate, validSearchQuery, coordinatePair } from '/src/app/place-selection.mjs';
 
 const form = document.querySelector('#arrival-form');
@@ -29,8 +29,8 @@ function renderErrors() {
 }
 
 function renderResult() {
-  const result = state.result;
-  renderRecommendation(result?.route ? result : null);
+  const result = state.scheduleResult;
+  renderRecommendation(state.result?.route ? state.result : null);
   byId('calculated-result').hidden = !result;
   byId('empty-result').hidden = Boolean(result);
   if (!result) {
@@ -42,8 +42,8 @@ function renderResult() {
     byId('result-origin').textContent = '';
     byId('result-destination').textContent = '';
     byId('previous-day').hidden = true;
-    byId('empty-title').textContent = state.invalidated ? '입력값이 변경되었어요' : '아직 계산된 일정이 없어요';
-    byId('empty-description').textContent = state.invalidated ? '새로운 일정으로 다시 계산해 주세요.' : '일정을 입력하면 목표 도착시각을 확인할 수 있어요.';
+    byId('empty-title').textContent = '도착 일정을 입력해 주세요';
+    byId('empty-description').textContent = '날짜와 시각을 완성하면 목표 도착시각이 자동으로 계산돼요.';
     return;
   }
   const target = formatSeoulDateTime(result.targetArrivalDateTime);
@@ -54,13 +54,13 @@ function renderResult() {
   byId('previous-day').hidden = result.targetArrivalDateTime.slice(0, 10) === result.desiredArrivalDate;
   byId('desired-arrival').textContent = `${desired.date} ${desired.time}`;
   byId('result-buffer').textContent = `${result.bufferMinutes}분`;
-  byId('result-origin').textContent = result.originText;
-  byId('result-destination').textContent = result.destinationText;
+  byId('result-origin').textContent = state.input.originText.trim() || '출발지 선택 전';
+  byId('result-destination').textContent = state.input.destinationText.trim() || '목적지 선택 전';
 }
 
-form.addEventListener('input', event => {
+function handleInput(event) {
   const { name, value } = event.target;
-  if (!fields.includes(name)) return;
+  if (!fields.includes(name) || String(state.input[name] ?? '') === value) return;
   recommendationGate.invalidate();
   recommendButton.disabled = false;
   recommendButton.textContent = '경로 조회하고 출발시각 추정';
@@ -75,21 +75,12 @@ form.addEventListener('input', event => {
   }
   renderErrors();
   renderResult();
-});
+}
+form.addEventListener('input', handleInput);
+form.addEventListener('change', handleInput);
 
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  const values = Object.fromEntries(new FormData(form));
-  recommendationGate.invalidate();
-  recommendButton.disabled = false;
-  recommendButton.textContent = '경로 조회하고 출발시각 추정';
-  byId('recommendation-status').textContent = '';
-  const calculation = calculateTargetArrival(values, { allowSameText: Boolean(state.selectedPlaces.origin && state.selectedPlaces.destination && state.selectedPlaces.origin.id !== state.selectedPlaces.destination.id) });
-  state = { ...state, input: values, result: calculation.result, errors: calculation.errors, invalidated: false, revision: state.revision + 1 };
-  renderErrors();
-  renderResult();
-  if (!calculation.ok) form.querySelector('[aria-invalid="true"]')?.focus();
-});
+// Enter must not implicitly issue a paid request; search and route buttons are explicit.
+form.addEventListener('submit', event => event.preventDefault());
 
 function duration(seconds) {
   return `${Math.floor(seconds / 60)}분${seconds % 60 ? ` ${seconds % 60}초` : ''}`;
@@ -205,7 +196,7 @@ recommendButton.addEventListener('click', async () => {
   const calculation = calculateTargetArrival(values, { allowSameText: Boolean(state.selectedPlaces.origin && state.selectedPlaces.destination && state.selectedPlaces.origin.id !== state.selectedPlaces.destination.id) });
   const errors = { ...calculation.errors };
   for (const slot of slots) if (!state.selectedPlaces[slot]) errors[`${slot}Text`] = '검색 결과에서 장소를 선택해 주세요.';
-  state = { ...state, input: values, result: calculation.result, errors };
+  state = { ...state, input: values, scheduleResult: calculateScheduleTarget(values).result, result: calculation.result, errors };
   byId('recommendation-status').textContent = '';
   renderErrors(); renderResult();
   if (Object.keys(errors).length) { form.querySelector('[aria-invalid="true"]')?.focus(); return; }
@@ -241,3 +232,5 @@ recommendButton.addEventListener('click', async () => {
     if (recommendationGate.isCurrent(ticket)) { recommendButton.disabled = false; recommendButton.textContent = '경로 조회하고 출발시각 추정'; }
   }
 });
+
+renderResult();

@@ -1,4 +1,4 @@
-import { createPlannerState, updatePlannerInput } from './arrival-plan.mjs';
+import { createPlannerState, updatePlannerInput, calculateScheduleTarget } from './arrival-plan.mjs';
 
 export const MAX_SEARCH_LENGTH = 80;
 export function validSearchQuery(value) {
@@ -14,14 +14,20 @@ export function coordinatePair(longitude, latitude) {
 }
 
 export function createJourneyState() {
-  return { ...createPlannerState(), selectedPlaces: { origin: null, destination: null }, revision: 0 };
+  return { ...createPlannerState(), scheduleResult: null, selectedPlaces: { origin: null, destination: null }, revision: 0 };
 }
 
 export function changeJourneyInput(state, patch) {
   const selectedPlaces = { ...state.selectedPlaces };
   if ('originText' in patch) selectedPlaces.origin = null;
   if ('destinationText' in patch) selectedPlaces.destination = null;
-  return { ...updatePlannerInput(state, patch), selectedPlaces, revision: state.revision + 1 };
+  const next = updatePlannerInput(state, patch);
+  const scheduleFields = ['desiredArrivalDate', 'desiredArrivalTime', 'bufferMinutes'];
+  if (scheduleFields.some(name => name in patch)) for (const name of scheduleFields) delete next.errors[name];
+  return {
+    ...next, scheduleResult: calculateScheduleTarget(next.input).result,
+    selectedPlaces, revision: state.revision + 1,
+  };
 }
 
 export function choosePlace(state, slot, place) {
